@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Inicio
 
-## Getting Started
-
-First, run the development server:
+Crear cuenta de Clerk y un proyecto/ aplicación. Ten a mano las variables de entorno que te proporcionará (NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY y CLERK_SECRET_KEY)y que tendrás que añadir al archivo env.local (todavía no)
 
 ```bash
+npm i
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm convex dev
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Cuando levantes el servidor de convex te pedirá autorizar con Github. El servidor de convex se abrirá en otro puerto. Se te genera directamente un archivo env.local con las variables de entorno.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configurando Clerk/Convex
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Creando Webhook endpoint en Clerk
 
-## Learn More
+Ves al dashboard de Clerk y crea un endpoint en el apartado Webhooks. Copia la NEXT_CONVEX_URL que está en el .env.local de tu proyecto, borra el cloud y sustituyelo por site y añade /clerk. Selecciona el evento user.created de la lista de eventos. Copia el webhooksecret que te proporciona el nuevo endpoint creado en las variables de entorno de convex (en el dashboard, settings, enviroment variables).
 
-To learn more about Next.js, take a look at the following resources:
+### Creando JWT Template
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+En el apartado JWT Templates del dashboard de Clerk crea un nuevo template para Convex. Copia el Issuer y asegúrate de guardar los cambios. Pega el Issuer en el domain del archivo auth.config.ts que está dentro de la carpeta convex de tu proyecto.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Toda la info en los docs de Clerk https://clerk.com/docs/integrations/databases/convex
 
-## Deploy on Vercel
+## Logs internos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Tanto Clerk como Convex disponen de logs de las acciones que se ejecutan. En Clerk está dentro de Webhooks. En Convex, hay un apartado en el dashboard llamado Logs
