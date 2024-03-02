@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import "./globals.css";
 import Providers from "../providers/clerkConvexProvider";
-import { ThemeProvider } from "@/providers/theme-provider";
+import { ThemeProvider } from "@/providers/themeProvider";
 import Header from "@/components/shared/Header";
 
 const jost = Jost({ subsets: ["latin"] });
@@ -19,9 +19,9 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <Providers>
-      <html lang="es" suppressHydrationWarning>
-        <body className={`${jost.className}  min-h-svh w-full`}>
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${jost.className}  min-h-svh w-full`}>
+        <Providers>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -31,9 +31,9 @@ const RootLayout = ({
             <Header />
             {children}
           </ThemeProvider>
-        </body>
-      </html>
-    </Providers>
+        </Providers>
+      </body>
+    </html>
   );
 };
 
